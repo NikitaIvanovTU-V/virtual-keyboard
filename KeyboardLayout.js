@@ -326,7 +326,7 @@ const keyboardLayout = [
     },
     {
       code: 'ArrowUp',
-      special: true,
+      special: false,
       text: { en: '⯅', ru: '⯅' },
       size: 'normal',
     },
@@ -370,19 +370,19 @@ const keyboardLayout = [
     },
     {
       code: 'ArrowLeft',
-      special: true,
+      special: false,
       text: { en: '⯇', ru: '⯇' },
       size: 'normal',
     },
     {
       code: 'ArrowDown',
-      special: true,
+      special: false,
       text: { en: '⯆', ru: '⯆' },
       size: 'normal',
     },
     {
       code: 'ArrowRight',
-      special: true,
+      special: false,
       text: { en: '⯈', ru: '⯈' },
       size: 'normal',
     },
