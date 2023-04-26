@@ -14,6 +14,10 @@ class Keyboard {
     this.keyboard.setAttribute('class', 'keyboard');
     this.keyboard.append(keyboardNode);
     this.wrapper.append(this.keyboard);
+    this.about = document.createElement('p');
+    this.about.setAttribute('class', 'about');
+    this.about.innerHTML = 'Press Shift+Alt to switch languages <br> Tested in Windows <br> Task done for RS School by Nikita Ivanov';
+    this.wrapper.append(this.about);
     document.body.append(this.wrapper);
   }
 }
