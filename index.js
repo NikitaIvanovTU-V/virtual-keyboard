@@ -43,8 +43,11 @@ class Keyboard {
           key.classList.toggle('active');
           this.caps = !this.caps;
           this.switchCase(e.shiftKey);
+        } else if (((e.shiftKey && e.altKey) || (e.altKey && e.shiftKey)) && !e.repeat) {
+          this.language = (this.language === 'en') ? 'ru' : 'en';
+          this.switchLanguage(e.shiftKey);
         } else if ((e.code === 'ShiftLeft' || e.code === 'ShiftRight') && !e.repeat) {
-          this.switchShift(this.language, e.shiftKey);
+          this.switchShift(e.shiftKey);
           key.classList.add('active');
         } else {
           key.classList.add('active');
@@ -74,7 +77,7 @@ class Keyboard {
     });
     document.addEventListener('keyup', (e) => {
       const key = document.getElementById(e.code);
-      if (keys[e.code] && !(e.code === 'CapsLock')) {
+      if (keys[e.code] && !(e.code === 'CapsLock') && !(e.code === 'ShiftLeft' || e.code === 'ShiftRight')) {
         key.classList.remove('active');
       } else if ((e.code === 'ShiftLeft' || e.code === 'ShiftRight') && !e.repeat) {
         this.switchShift(false);
@@ -84,19 +87,22 @@ class Keyboard {
   }
 
   input(str) {
+    const oldSelection = this.textArea.selectionStart;
     this.textArea.value = this.textArea.value.slice(0, this.textArea.selectionStart)
       + str + this.textArea.value.slice(this.textArea.selectionEnd);
+    this.textArea.selectionStart = oldSelection + 1;
+    this.textArea.selectionEnd = oldSelection + 1;
   }
 
   backspace() {
-    this.textArea.value = this.textArea.value.slice(0, this.textArea.selectionStart - 1)
+    this.textArea.value = this.textArea.value.slice(0, this.textArea.selectionStart)
       + this.textArea.value.slice(this.textArea.selectionEnd);
   }
 
   delete() {
     const oldSelection = this.textArea.selectionStart;
     this.textArea.value = this.textArea.value.slice(0, this.textArea.selectionStart)
-      + this.textArea.value.slice(this.textArea.selectionEnd + 1);
+      + this.textArea.value.slice(this.textArea.selectionEnd);
     this.textArea.selectionStart = oldSelection;
     this.textArea.selectionEnd = oldSelection;
   }
@@ -107,10 +113,11 @@ class Keyboard {
         if (!keys[e.id].special) {
           if (keys[e.id].shift) {
             e.textContent = keys[e.id].shift[this.language];
-          } else if (this.caps) {
-            e.textContent = e.textContent.toLowerCase();
+          }
+          if (this.caps) {
+            e.textContent = e.textContent.toLocaleLowerCase();
           } else {
-            e.textContent = e.textContent.toUpperCase();
+            e.textContent = e.textContent.toLocaleUpperCase();
           }
         }
       });
@@ -119,14 +126,22 @@ class Keyboard {
         if (!keys[e.id].special) {
           if (keys[e.id].shift) {
             e.textContent = keys[e.id][this.language];
-          } else if (this.caps) {
-            e.textContent = e.textContent.toUpperCase();
+          }
+          if (this.caps) {
+            e.textContent = e.textContent.toLocaleUpperCase();
           } else {
-            e.textContent = e.textContent.toLowerCase();
+            e.textContent = e.textContent.toLocaleLowerCase();
           }
         }
       });
     }
+  }
+
+  switchLanguage(shift) {
+    Array.from(this.keyboard.querySelectorAll('.keyboard__key')).forEach((e) => {
+      e.textContent = keys[e.id][this.language];
+      this.switchCase(shift);
+    });
   }
 
   switchCase(shift) {
@@ -139,16 +154,16 @@ class Keyboard {
 
   toLower() {
     Array.from(this.keyboard.querySelectorAll('.keyboard__key')).forEach((e) => {
-      if (!keys[e.id].special && !keys[e.id].shift) {
-        e.textContent = e.textContent.toLowerCase();
+      if (!keys[e.id].special) {
+        e.textContent = e.textContent.toLocaleLowerCase();
       }
     });
   }
 
   toUpper() {
     Array.from(this.keyboard.querySelectorAll('.keyboard__key')).forEach((e) => {
-      if (!keys[e.id].special && !keys[e.id].shift) {
-        e.textContent = e.textContent.toUpperCase();
+      if (!keys[e.id].special) {
+        e.textContent = e.textContent.toLocaleUpperCase();
       }
     });
   }
