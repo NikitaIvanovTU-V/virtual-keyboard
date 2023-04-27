@@ -417,6 +417,7 @@ keyboardLayout.forEach((line) => {
   line.forEach((key) => {
     keys[key.code] = key.text;
     keys[key.code].special = key.special;
+    keys[key.code].shift = key.shift;
     const keyButton = document.createElement('button');
     keyButton.setAttribute('id', key.code);
     keyButton.classList.add('keyboard__key');
