@@ -26,9 +26,10 @@ body {
   border: 1px solid #000;
   margin: 5px;
   color: rgb(90, 110, 110);
+  transition: all 0.3s ease;
 }
 .keyboard__key:hover {
-  background-color: lightgrey;
+  background-color: rgb(196, 195, 195);
 }
 .keyboard__key.active {
   background-color: darkgrey;
