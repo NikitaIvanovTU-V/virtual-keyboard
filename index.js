@@ -124,29 +124,40 @@ class Keyboard {
   }
 
   input(str) {
-    const oldSelection = this.sel;
     this.textArea.value = this.textArea.value.slice(0, this.sel)
       + str + this.textArea.value.slice(this.selE);
-    this.textArea.selectionStart = oldSelection + 1;
-    this.textArea.selectionEnd = oldSelection + 1;
+    this.textArea.selectionStart = this.sel + 1;
+    this.textArea.selectionEnd = this.sel + 1;
     this.setSel();
   }
 
   backspace() {
-    const oldSelection = this.sel;
-    this.textArea.value = this.textArea.value.slice(0, this.sel - 1)
+    if (this.sel === this.selE) {
+      this.textArea.value = this.textArea.value.slice(0, this.sel - 1)
+        + this.textArea.value.slice(this.selE);
+      this.textArea.selectionStart = this.sel - 1;
+      this.textArea.selectionEnd = this.sel - 1;
+    } else {
+      this.textArea.value = this.textArea.value.slice(0, this.sel)
       + this.textArea.value.slice(this.selE);
-    this.textArea.selectionStart = oldSelection - 1;
-    this.textArea.selectionEnd = oldSelection - 1;
+      this.textArea.selectionStart = this.sel;
+      this.textArea.selectionEnd = this.sel;
+    }
     this.setSel();
   }
 
   delete() {
-    const oldSelection = this.sel;
-    this.textArea.value = this.textArea.value.slice(0, this.sel)
-      + this.textArea.value.slice(this.selE + 1);
-    this.textArea.selectionStart = oldSelection;
-    this.textArea.selectionEnd = oldSelection;
+    if (this.sel === this.selE) {
+      this.textArea.value = this.textArea.value.slice(0, this.sel)
+        + this.textArea.value.slice(this.selE + 1);
+      this.textArea.selectionStart = this.sel;
+      this.textArea.selectionEnd = this.sel;
+    } else {
+      this.textArea.value = this.textArea.value.slice(0, this.sel)
+      + this.textArea.value.slice(this.selE);
+      this.textArea.selectionStart = this.sel;
+      this.textArea.selectionEnd = this.sel;
+    }
     this.setSel();
   }
 
