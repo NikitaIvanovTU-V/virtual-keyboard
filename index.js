@@ -69,6 +69,8 @@ class Keyboard {
             this.language = (this.language === 'en') ? 'ru' : 'en';
             sessionStorage.setItem('language', this.language);
             this.switchLanguage();
+            key.classList.add('active');
+            document.querySelector('#AltLeft').classList.add('active');
           } else if ((e.code === 'ShiftLeft' || e.code === 'ShiftRight') && !e.repeat) {
             this.switchShift(this.shift);
             key.classList.add('active');
