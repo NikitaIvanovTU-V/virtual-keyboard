@@ -1,0 +1,48 @@
+body {
+  height: 100vh;
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.keyboard__row {
+  display: flex;
+  
+}
+.keyboard__key {
+  font-size: 20px;
+  font-weight: 500;
+  height: 45px;
+  border: 1px solid #000;
+  margin: 5px;
+  color: rgb(90, 110, 110);
+  &:hover {
+    background-color: lightgrey;
+  }
+  &.active {
+    background-color: darkgrey;
+    color: rgb(170, 201, 206);
+  }
+}
+.keyboard__key_normal {
+  width: 45px;
+
+}
+.keyboard__key_big {
+  width: 92px;
+}
+.keyboard__key_bigger {
+  width: 123px;
+}
+.keyboard__key_space {
+  width: 380px;
+}
+#Backspace {
+  width: 145px;
+}
+#ControlLeft,
+#ControlRight {
+  width: 65px;
+}
