@@ -112,6 +112,12 @@ class Keyboard {
         code: e.target.id,
       });
       document.dispatchEvent(clickEvent);
+      document.body.addEventListener('mouseup', () => {
+        const clickEvent2 = new KeyboardEvent('keyup', {
+          code: e.target.id,
+        });
+        document.dispatchEvent(clickEvent2);
+      });
     });
   }
 
