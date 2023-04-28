@@ -3,7 +3,8 @@ import { keyboardNode, keys } from './KeyboardLayout.js';
 
 class Keyboard {
   constructor() {
-    this.language = 'en';
+    if (sessionStorage.getItem('language')) this.language = sessionStorage.getItem('language');
+    else this.language = 'en';
     this.caps = false;
     this.shift = false;
   }
@@ -19,6 +20,7 @@ class Keyboard {
     this.keyboard = document.createElement('div');
     this.keyboard.setAttribute('class', 'keyboard');
     this.keyboard.append(keyboardNode);
+    if (this.language === 'ru') this.switchLanguage();
     this.wrapper.append(this.keyboard);
     this.about = document.createElement('p');
     this.about.setAttribute('class', 'about');
@@ -65,6 +67,7 @@ class Keyboard {
             this.switchCase(this.shift);
           } else if (((this.shift && e.altKey) || (e.altKey && this.shift)) && !e.repeat) {
             this.language = (this.language === 'en') ? 'ru' : 'en';
+            sessionStorage.setItem('language', this.language);
             this.switchLanguage();
           } else if ((e.code === 'ShiftLeft' || e.code === 'ShiftRight') && !e.repeat) {
             this.switchShift(this.shift);
