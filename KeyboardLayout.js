@@ -190,7 +190,7 @@ const keyboardLayout = [
       code: 'Delete',
       special: true,
       text: { en: 'Del', ru: 'Del' },
-      size: 'big',
+      size: 'normal',
     },
   ],
   [
