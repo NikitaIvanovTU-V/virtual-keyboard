@@ -92,7 +92,7 @@ class Keyboard {
             }
           }
         }
-      }
+      } else e.preventDefault();
     });
 
     document.addEventListener('keyup', (e) => {
