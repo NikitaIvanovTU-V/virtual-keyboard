@@ -269,9 +269,9 @@ const keyboardLayout = [
       size: 'normal',
     },
     {
-      code: 'enter',
+      code: 'Enter',
       special: true,
-      text: { en: 'enter', ru: 'enter' },
+      text: { en: 'Enter', ru: 'Enter' },
       size: 'bigger',
     },
   ],
