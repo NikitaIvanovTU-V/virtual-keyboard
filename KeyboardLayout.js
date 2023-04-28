@@ -366,6 +366,12 @@ const keyboardLayout = [
       size: 'big',
     },
     {
+      code: 'MetaLeft',
+      special: true,
+      text: { en: 'Win', ru: 'Win' },
+      size: 'big',
+    },
+    {
       code: 'AltLeft',
       special: true,
       text: { en: 'Alt', ru: 'Alt' },
