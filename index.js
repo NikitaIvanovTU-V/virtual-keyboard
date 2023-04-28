@@ -58,40 +58,42 @@ class Keyboard {
       if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') this.shift = true;
       const key = document.getElementById(e.code);
       if (keys[e.code]) {
-        if (e.code === 'CapsLock' && !e.repeat) {
-          key.classList.toggle('active');
-          this.caps = !this.caps;
-          this.switchCase(this.shift);
-        } else if (((this.shift && e.altKey) || (e.altKey && this.shift)) && !e.repeat) {
-          this.language = (this.language === 'en') ? 'ru' : 'en';
-          this.switchLanguage();
-        } else if ((e.code === 'ShiftLeft' || e.code === 'ShiftRight') && !e.repeat) {
-          this.switchShift(this.shift);
-          key.classList.add('active');
-        } else {
-          e.preventDefault();
-          key.classList.add('active');
-          if (!keys[e.code].special) {
-            this.input(key.textContent);
+        if (!e.ctrlKey) {
+          if (e.code === 'CapsLock' && !e.repeat) {
+            key.classList.toggle('active');
+            this.caps = !this.caps;
+            this.switchCase(this.shift);
+          } else if (((this.shift && e.altKey) || (e.altKey && this.shift)) && !e.repeat) {
+            this.language = (this.language === 'en') ? 'ru' : 'en';
+            this.switchLanguage();
+          } else if ((e.code === 'ShiftLeft' || e.code === 'ShiftRight') && !e.repeat) {
+            this.switchShift(this.shift);
+            key.classList.add('active');
           } else {
-            switch (e.code) {
-              case 'Backspace':
-                this.backspace();
-                break;
-              case 'Delete':
-                this.delete();
-                break;
-              case 'Tab':
-                this.input('\t');
-                break;
-              case 'Enter':
-                this.input('\n');
-                break;
-              default:
-                break;
+            e.preventDefault();
+            key.classList.add('active');
+            if (!keys[e.code].special) {
+              this.input(key.textContent);
+            } else {
+              switch (e.code) {
+                case 'Backspace':
+                  this.backspace();
+                  break;
+                case 'Delete':
+                  this.delete();
+                  break;
+                case 'Tab':
+                  this.input('\t');
+                  break;
+                case 'Enter':
+                  this.input('\n');
+                  break;
+                default:
+                  break;
+              }
             }
           }
-        }
+        } else key.classList.add('active');
       } else e.preventDefault();
     });
 
