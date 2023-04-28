@@ -106,7 +106,7 @@ class Keyboard {
       }
     });
     // Mouse events
-    this.keyboard.addEventListener('click', (e) => {
+    this.keyboard.addEventListener('mousedown', (e) => {
       this.setSel();
       const clickEvent = new KeyboardEvent('keydown', {
         code: e.target.id,
