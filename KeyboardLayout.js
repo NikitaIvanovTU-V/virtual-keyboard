@@ -97,12 +97,6 @@ const keyboardLayout = [
       text: { en: 'Back', ru: 'Back' },
       size: 'big',
     },
-    {
-      code: 'Delete',
-      special: true,
-      text: { en: 'Del', ru: 'Del' },
-      size: 'big',
-    },
   ],
   [
     {
@@ -191,6 +185,12 @@ const keyboardLayout = [
       text: { en: '\\', ru: '\\' },
       shift: { en: '|', ru: '/' },
       size: 'normal',
+    },
+    {
+      code: 'Delete',
+      special: true,
+      text: { en: 'Del', ru: 'Del' },
+      size: 'big',
     },
   ],
   [
