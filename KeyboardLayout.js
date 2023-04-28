@@ -95,7 +95,7 @@ const keyboardLayout = [
       code: 'Backspace',
       special: true,
       text: { en: 'Back', ru: 'Back' },
-      size: 'big',
+      size: 'bigger',
     },
   ],
   [
@@ -103,7 +103,7 @@ const keyboardLayout = [
       code: 'Tab',
       special: true,
       text: { en: 'Tab', ru: 'Tab' },
-      size: 'bigger',
+      size: 'big',
     },
     {
       code: 'KeyQ',
@@ -363,19 +363,19 @@ const keyboardLayout = [
       code: 'ControlLeft',
       special: true,
       text: { en: 'Ctrl', ru: 'Ctrl' },
-      size: 'big',
+      size: 'normal',
     },
     {
       code: 'MetaLeft',
       special: true,
       text: { en: 'Win', ru: 'Win' },
-      size: 'big',
+      size: 'normal',
     },
     {
       code: 'AltLeft',
       special: true,
       text: { en: 'Alt', ru: 'Alt' },
-      size: 'big',
+      size: 'normal',
     },
     {
       code: 'Space',
@@ -387,13 +387,7 @@ const keyboardLayout = [
       code: 'AltRight',
       special: true,
       text: { en: 'Alt', ru: 'Alt' },
-      size: 'big',
-    },
-    {
-      code: 'ControlRight',
-      special: true,
-      text: { en: 'Ctrl', ru: 'Ctrl' },
-      size: 'big',
+      size: 'normal',
     },
     {
       code: 'ArrowLeft',
@@ -411,6 +405,12 @@ const keyboardLayout = [
       code: 'ArrowRight',
       special: false,
       text: { en: '⯈', ru: '⯈' },
+      size: 'normal',
+    },
+    {
+      code: 'ControlRight',
+      special: true,
+      text: { en: 'Ctrl', ru: 'Ctrl' },
       size: 'normal',
     },
   ],
