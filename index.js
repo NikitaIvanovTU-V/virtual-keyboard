@@ -5,6 +5,7 @@ class Keyboard {
   constructor() {
     this.language = 'en';
     this.caps = false;
+    this.shift = false;
   }
 
   createKeyboard() {
@@ -25,34 +26,52 @@ class Keyboard {
     this.wrapper.append(this.about);
     document.body.append(this.wrapper);
     this.textArea.focus();
+    this.setSel();
     this.bindEvents();
   }
 
+  setSel() {
+    this.sel = this.textArea.selectionStart;
+    this.selE = this.textArea.selectionEnd;
+  }
+
+  getSel() {
+    this.textArea.selectionStart = this.sel;
+    this.textArea.selectionEnd = this.selE;
+  }
+
   bindEvents() {
-    // text area is always focused
-    this.textArea.addEventListener('blur', () => {
+    this.textArea.addEventListener('blur', () => { // text area is always focused
       setTimeout(() => {
         this.textArea.focus();
+        this.getSel();
       }, 0);
     });
-    //
+
+    this.keyboard.addEventListener('mouseover', () => { // remember textArea's selection before clicking on the keyboard
+      this.setSel();
+    });
+
+    // keyboard events
     document.addEventListener('keydown', (e) => {
+      this.setSel();
+      if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') this.shift = true;
       const key = document.getElementById(e.code);
       if (keys[e.code]) {
         if (e.code === 'CapsLock' && !e.repeat) {
           key.classList.toggle('active');
           this.caps = !this.caps;
-          this.switchCase(e.shiftKey);
-        } else if (((e.shiftKey && e.altKey) || (e.altKey && e.shiftKey)) && !e.repeat) {
+          this.switchCase(this.shift);
+        } else if (((this.shift && e.altKey) || (e.altKey && this.shift)) && !e.repeat) {
           this.language = (this.language === 'en') ? 'ru' : 'en';
-          this.switchLanguage(e.shiftKey);
+          this.switchLanguage();
         } else if ((e.code === 'ShiftLeft' || e.code === 'ShiftRight') && !e.repeat) {
-          this.switchShift(e.shiftKey);
+          this.switchShift(this.shift);
           key.classList.add('active');
         } else {
+          e.preventDefault();
           key.classList.add('active');
           if (!keys[e.code].special) {
-            e.preventDefault();
             this.input(key.textContent);
           } else {
             switch (e.code) {
@@ -75,36 +94,52 @@ class Keyboard {
         }
       }
     });
+
     document.addEventListener('keyup', (e) => {
       const key = document.getElementById(e.code);
       if (keys[e.code] && !(e.code === 'CapsLock') && !(e.code === 'ShiftLeft' || e.code === 'ShiftRight')) {
         key.classList.remove('active');
       } else if ((e.code === 'ShiftLeft' || e.code === 'ShiftRight') && !e.repeat) {
+        this.shift = false;
         this.switchShift(false);
         key.classList.remove('active');
       }
     });
+    // Mouse events
+    this.keyboard.addEventListener('click', (e) => {
+      this.setSel();
+      const clickEvent = new KeyboardEvent('keydown', {
+        code: e.target.id,
+      });
+      document.dispatchEvent(clickEvent);
+    });
   }
 
   input(str) {
-    const oldSelection = this.textArea.selectionStart;
-    this.textArea.value = this.textArea.value.slice(0, this.textArea.selectionStart)
-      + str + this.textArea.value.slice(this.textArea.selectionEnd);
+    const oldSelection = this.sel;
+    this.textArea.value = this.textArea.value.slice(0, this.sel)
+      + str + this.textArea.value.slice(this.selE);
     this.textArea.selectionStart = oldSelection + 1;
     this.textArea.selectionEnd = oldSelection + 1;
+    this.setSel();
   }
 
   backspace() {
-    this.textArea.value = this.textArea.value.slice(0, this.textArea.selectionStart)
-      + this.textArea.value.slice(this.textArea.selectionEnd);
+    const oldSelection = this.sel;
+    this.textArea.value = this.textArea.value.slice(0, this.sel - 1)
+      + this.textArea.value.slice(this.selE);
+    this.textArea.selectionStart = oldSelection - 1;
+    this.textArea.selectionEnd = oldSelection - 1;
+    this.setSel();
   }
 
   delete() {
-    const oldSelection = this.textArea.selectionStart;
-    this.textArea.value = this.textArea.value.slice(0, this.textArea.selectionStart)
-      + this.textArea.value.slice(this.textArea.selectionEnd);
+    const oldSelection = this.sel;
+    this.textArea.value = this.textArea.value.slice(0, this.sel)
+      + this.textArea.value.slice(this.selE + 1);
     this.textArea.selectionStart = oldSelection;
     this.textArea.selectionEnd = oldSelection;
+    this.setSel();
   }
 
   switchShift(shift) {
