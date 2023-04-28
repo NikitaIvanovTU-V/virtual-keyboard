@@ -1,15 +1,19 @@
 body {
   height: 100vh;
+  background-color: #e9d6d6;
 }
 .wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-
+.textarea {
+  font-size: 20px;
+  width: 900px;
+  height: 200px;
+}
 .keyboard__row {
   display: flex;
-  
 }
 .keyboard__key {
   font-size: 20px;
@@ -28,7 +32,6 @@ body {
 }
 .keyboard__key_normal {
   width: 45px;
-
 }
 .keyboard__key_big {
   width: 92px;
@@ -45,4 +48,7 @@ body {
 #ControlLeft,
 #ControlRight {
   width: 65px;
+}
+.about {
+  font-size: 30px;
 }
